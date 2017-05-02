@@ -12,13 +12,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBOutlet weak var theTable: UITableView!
     
-    var emojis = ["😎", "😀", "😡", "😳", "😇", "🕷"]
+    var emojis : [Emoji] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         theTable.dataSource = self
         theTable.delegate = self
+        emojis = loadEmojis()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -27,7 +28,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = emojis[indexPath.row]
+        cell.textLabel?.text = emojis[indexPath.row].icon
         return cell
     }
     
@@ -40,7 +41,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print(sender!)
         let emojiDefVC = segue.destination as! EmojiDefViewController
-        emojiDefVC.emoji = sender as! String!
+        emojiDefVC.emoji = sender as! Emoji!
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,6 +49,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
 
+    func loadEmojis() -> [Emoji] {
+        let emoji1 = Emoji()
+        emoji1.icon = "😎"
+        emoji1.description = "Cool Face"
+        
+        let emoji2 = Emoji()
+        emoji2.icon = "😇"
+        emoji2.description = "Angel Face"
 
+        let emoji3 = Emoji()
+        emoji3.icon = "💤"
+        emoji3.description = "Sleeping"
+
+        let emoji4 = Emoji()
+        emoji4.icon = "⚽️"
+        emoji4.description = "Soccer Ball"
+
+        let emoji5 = Emoji()
+        emoji5.icon = "🏀"
+        emoji5.description = "Basketball"
+
+        let emoji6 = Emoji()
+        emoji6.icon = "🏈"
+        emoji6.description = "Football"
+
+        return [emoji1, emoji2, emoji3, emoji4, emoji5, emoji6]
+    }
 }
 
